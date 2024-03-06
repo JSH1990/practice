@@ -15,64 +15,65 @@ public class BoardDaoImpl implements BoardDao {
 
     public int count() throws Exception {
         return session.selectOne(namespace+"count");
-    } // T selectOne(String statement)
+    }
 
     @Override
     public int deleteAll() {
         return session.delete(namespace+"deleteAll");
-    } // int delete(String statement)
+    }
 
     @Override
     public int delete(Integer bno, String writer) throws Exception {
         Map map = new HashMap();
-        map.put("bno", bno);
+        map.put("bno", bno); //매개변수에 bno 들어있어서 빨간불 안들어옴 (mapper와 상관없음)
         map.put("writer", writer);
-        return session.delete(namespace+"delete", map);
-    } // int delete(String statement, Object parameter)
+        return session.delete(namespace+"delete",map); //delete(string, object)로 위에 생성한 map객체를 의미한다.
+    }
 
+    @Override
     public int insert(BoardDto dto) throws Exception {
-        return session.insert(namespace+"insert", dto);
-    } // int insert(String statement, Object parameter)
+        session.insert(namespace+"insert", dto);
+    }
 
     @Override
     public List<BoardDto> selectAll() throws Exception {
         return session.selectList(namespace+"selectAll");
-    } // List<E> selectList(String statement)
+    }
 
+    @Override
     public BoardDto select(Integer bno) throws Exception {
-        return session.selectOne(namespace + "select", bno);
-    } // T selectOne(String statement, Object parameter)
+        return session.selectOne(namespace+"select",bno);
+    }
 
     @Override
     public List<BoardDto> selectPage(Map map) throws Exception {
-        return session.selectList(namespace+"selectPage", map);
-    } // List<E> selectList(String statement, Object parameter)
+        return null;
+    }
 
     @Override
     public int update(BoardDto dto) throws Exception {
-        return session.update(namespace+"update", dto);
-    } // int update(String statement, Object parameter)
+        return 0;
+    }
 
     @Override
     public int increaseViewCnt(Integer bno) throws Exception {
-        return session.update(namespace+"increaseViewCnt", bno);
-    } // int update(String statement, Object parameter)
+        return 0;
+    }
 
     @Override
     public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
-        return session.selectList(namespace+"searchSelectPage", sc);
-    } // List<E> selectList(String statement, Object parameter)
+        return null;
+    }
 
     @Override
     public int searchResultCnt(SearchCondition sc) throws Exception {
-        return session.selectOne(namespace+"searchResultCnt", sc);
-    } // T selectOne(String statement, Object parameter)
+        return 0;
+    }
 
     @Override
-    public int updateCommentCnt(Integer bno, int cnt) {
-        Map map = new HashMap();
-        map.put("cnt", cnt);
-        map.put("bno", bno);
-        return session.update(namespace+"updateCommentCnt",map);
+    public int updateCommentCnt(Integer bno, int i) {
+        return 0;
     }
+
+
 }

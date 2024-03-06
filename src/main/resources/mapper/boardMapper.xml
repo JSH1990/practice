@@ -12,10 +12,10 @@
     </delete>
 
     <delete id="delete" parameterType="map">
-        DELETE FROM board WHERE bno = #{bno} and writer = #{writer}
+        DELETE FROM board WHERE  = #{bno} and writer = #{writer}
     </delete>
 
-    <insert id="insert" parameterType="BoardDto">
+    <insert id="insert" parameterType="BoardDto"> <!--parameterType,resultType 둘다 별칭가능하고 대소문자상관없다. 등록만하면됨 -->
         INSERT INTO board
             (title, content, writer)
         VALUES
