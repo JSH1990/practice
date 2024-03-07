@@ -46,15 +46,15 @@ public interface BoardDao {
     //게시글 조회 증가
     //해당게시글 조회수니까 해당게시물번호를 매개변수로 했다.
     int increaseViewCnt(Integer bno) throws Exception;
-
-    //검색 페이지 조회
-    //x = 매개변수는 SearchCondition sc
-    List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception;
-
-    //searchResultCnt 검색결과 갯수 조회 x - 검색결과의 조건이 참인 경우의 갯수가 반환된다.
-    //매개변수는 comment 관련인거같다.
-    //x = 매개변수는 SearchCondition sc
-    int searchResultCnt(SearchCondition sc) throws Exception;
+//
+//    //검색 페이지 조회
+//    //x = 매개변수는 SearchCondition sc
+//    List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception;
+//
+//    //searchResultCnt 검색결과 갯수 조회 x - 검색결과의 조건이 참인 경우의 갯수가 반환된다.
+//    //매개변수는 comment 관련인거같다.
+//    //x = 매개변수는 SearchCondition sc
+//    int searchResultCnt(SearchCondition sc) throws Exception;
 
     //댓글 수정 갯수
     //매개변수는 게시글번호와 작성자(작성자가 일치해야 수정), comment 관련일거같다. x = Integer bno, int i

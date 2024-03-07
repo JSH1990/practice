@@ -19,7 +19,7 @@ public class BoardDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BoardDto boardDto = (BoardDto) o;
-        return view_cnt == boardDto.view_cnt && comment_cnt == boardDto.comment_cnt && Objects.equals(bno, boardDto.bno) && Objects.equals(title, boardDto.title) && Objects.equals(content, boardDto.content) && Objects.equals(writer, boardDto.writer) && Objects.equals(reg_date, boardDto.reg_date);
+        return view_cnt == boardDto.view_cnt  && Objects.equals(bno, boardDto.bno) && Objects.equals(title, boardDto.title) && Objects.equals(content, boardDto.content) && Objects.equals(writer, boardDto.writer) ;
     }
 
     @Override

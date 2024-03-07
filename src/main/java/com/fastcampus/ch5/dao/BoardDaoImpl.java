@@ -32,7 +32,7 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public int insert(BoardDto dto) throws Exception {
-        session.insert(namespace+"insert", dto);
+        return session.insert(namespace+"insert", dto);
     }
 
     @Override
@@ -47,32 +47,36 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public List<BoardDto> selectPage(Map map) throws Exception {
-        return null;
+//        Map map = new HashMap(); 위에 map 생성은 매개변수로 map없는 상태에서 map 객체를 새로만든거고, 이번에는 매개변수로 map이 있다.
+        return session.selectList(namespace+"selectPage", map);
     }
 
     @Override
     public int update(BoardDto dto) throws Exception {
-        return 0;
+        return session.update(namespace+"update", dto);
     }
 
     @Override
     public int increaseViewCnt(Integer bno) throws Exception {
-        return 0;
+        return session.update(namespace+"increaseViewCnt",bno);
     }
 
-    @Override
-    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
-        return null;
-    }
+//    @Override
+//    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
+//        return null;
+//    }
+//
+//    @Override
+//    public int searchResultCnt(SearchCondition sc) throws Exception {
+//        return 0;
+//    }
 
     @Override
-    public int searchResultCnt(SearchCondition sc) throws Exception {
-        return 0;
-    }
-
-    @Override
-    public int updateCommentCnt(Integer bno, int i) {
-        return 0;
+    public int updateCommentCnt(Integer bno, int cnt) {
+        Map map = new HashMap();
+        map.put("cnt", cnt);
+        map.put("bno", bno);
+        return session.update(namespace+"updateCommentCnt", map);
     }
 
 
