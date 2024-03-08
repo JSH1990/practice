@@ -120,24 +120,42 @@ public class BoardDaoImplTest {
         assertTrue(boardDao.count()==10);
 
         Map map = new HashMap();
-        map.put("offset", 0);
-        map.put("pageSize", 3);
+        map.put("offset", 0); //페이지수 1페이지가 0 . boardMapper의 selectPage에서 확인할수있다.
 
-        List<BoardDto> list = boardDao.selectPage(map);
+        /* offset
+        특정 페이지에서 가져올 데이터의 시작 위치
+
+        9=1
+        8=2.1
+        7=3.2.1
+        6=4,3,2
+        5=5.4.3
+        4=6.5.4
+        3=7.6.5
+        2=8.7.6
+        1=9.8.7
+        0=10,9,8
+         */
+
+        map.put("pageSize", 3); //게시글 3개 보여지도록 설정.
+
+        List<BoardDto> list = boardDao.selectPage(map); //게시글페이지와 한페이지의 게시글의 갯수를 담은 map을 매개변수에 넣는다.
+        //페이지가 총 3개고, get(0)은 i의 반복값의 마지막 값을 가져오므로 10이다.
+
         assertTrue(list.get(0).getTitle().equals("10"));
         assertTrue(list.get(1).getTitle().equals("9"));
         assertTrue(list.get(2).getTitle().equals("8"));
+        //assertTrue(list.get(3).getTitle().equals("7")); pageSize가 3이므로 게시글 4개는 확인할수 없다.
 
         map = new HashMap();
         map.put("offset", 7);
         map.put("pageSize", 3);
 
         list = boardDao.selectPage(map);
-        assertTrue(list.get(0).getTitle().equals("3"));
+        assertTrue(list.get(0).getTitle().equals("3")); //offset이 7이므로 10.9...7번째의 값이 3이다.
         assertTrue(list.get(1).getTitle().equals("2"));
         assertTrue(list.get(2).getTitle().equals("1"));
 
-        
     }
 
     @Test

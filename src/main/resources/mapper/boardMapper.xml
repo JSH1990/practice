@@ -38,10 +38,22 @@
         WHERE bno = #{bno}
     </select>
 
+    <!--
+    (mysql에서 조회하는 쿼리)
+    SELECT
+    board.bno, board.title, board.content, board.writer, board.view_cnt, board.comment_cnt, board.reg_date
+FROM
+    (SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+     FROM board
+     ORDER BY reg_date DESC, bno DESC
+     LIMIT 0, 3) AS board
+ORDER BY reg_date DESC, bno DESC;
+     -->
+
     <select id="selectPage" parameterType="map" resultType="BoardDto">
         <include refid="selectFromBoard"/>
         ORDER BY reg_date DESC, bno DESC
-        LIMIT #{offset}, #{pageSize}
+        LIMIT #{offset}, #{pageSize}  <!--offset은 페이지수, pageSize는 한페이지의 게시글의 갯수 -->
     </select>
 
 
