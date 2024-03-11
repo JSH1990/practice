@@ -159,11 +159,42 @@ public class BoardDaoImplTest {
     }
 
     @Test
-    public void update() {
+    public void updateTest() throws Exception {
+        boardDao.deleteAll();
+        BoardDto boardDto = new BoardDto("no title", "no cotnet", "bbb");
+        assertTrue(boardDao.insert(boardDto)==1); //게시글 한개 작성
+
+        Integer bno = boardDao.selectAll().get(0).getBno(); //bno에 게시글한개 넣음
+        System.out.println("bno = " + bno); //해당 게시물번호 출력
+        boardDto.setBno(bno);
+        boardDto.setTitle("edit title"); //게시글 title 수정
+        boardDto.setContent("setContent");
+        assertTrue(boardDao.update(boardDto)==1);
+
+        BoardDto boardDto2 = boardDao.select(bno);
+        assertTrue(boardDto.equals(boardDto2));
     }
 
     @Test
-    public void increaseViewCnt() {
+    public void increaseViewCnt() throws Exception{
+        boardDao.deleteAll();
+        assertTrue(boardDao.count()==0);
+
+        BoardDto boardDto = new BoardDto("no title", "no content", "bbb");
+        assertTrue(boardDao.insert(boardDto)==1);
+        assertTrue(boardDao.count()==1);
+
+        Integer bno = boardDao.selectAll().get(0).getBno();
+        assertTrue(boardDao.increaseViewCnt(bno)==1);
+
+        boardDto = boardDao.select(bno);
+        assertTrue(boardDto!=null);
+        assertTrue(boardDto.getView_cnt()==1);
+
+        assertTrue(boardDao.increaseViewCnt(bno)==1);
+        boardDto = boardDao.select(bno);
+        assertTrue(boardDto!=null);
+        assertTrue(boardDto.getView_cnt()==2);
     }
 
     @Test
