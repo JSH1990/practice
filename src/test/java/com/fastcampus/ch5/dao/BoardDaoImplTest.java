@@ -197,15 +197,15 @@ public class BoardDaoImplTest {
         assertTrue(boardDto.getView_cnt()==2);
     }
 
-    @Test
-    public void searchSelectPage() {
-    }
-
-    @Test
-    public void searchResultCnt() {
-    }
-
-    @Test
-    public void updateCommentCnt() {
-    }
+//    @Test
+//    public void searchSelectPage() {
+//    }
+//
+//    @Test
+//    public void searchResultCnt() {
+//    }
+//
+//    @Test
+//    public void updateCommentCnt() {
+//    }
 }
