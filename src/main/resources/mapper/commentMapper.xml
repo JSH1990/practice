@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fastcampus.ch5.dao.CommentMapper">
+    <delete id="deleteAll" parameterType="int">
+        <!-- 해당 게시물 번호에 맞는 댓글 삭제하기 -->
+        DELETE FROM comment
+        WHERE bno = #{bno}
+    </delete>
+
+    <select id="count" parameterType="int" resultType="int">
+        SELECT count(*) FROM comment
+        WHERE bno = #{bno}
+    </select>
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM comment
+        WHERE cno = #{cno} AND commenter = #{commenter}
+    </delete>
+
+    <insert id="insert" parameterType="CommentDto">
+        INSERT INTO comment
+        (bno, pcno, comment, commenter, reg_date, up_date)
+        VALUES
+            (#{bno}, #{pcno}, #{comment}, #{commenter},now(),now())
+    </insert>
+
+    <select id="selectAll" parameterType="int" resultType="CommentDto">
+        <!--
+        ifnull은 pcno 값이 null 이라면 cno값으로 대체(대댓글이 댓글아래 있게 만드려고 사용)
+        as는 보여지는 컬럼의 내용이다. cno, comment, commenter, reg_date, up_date 내용들이 모두 보여짐
+        -->
+        SELECT cno, bno, ifnull(pcno,cno) as pcno, comment, commenter, reg_date, up_date
+        FROM comment
+        WHERE bno = #{bno}
+        ORDER BY pcno ASC, cno ASC; <!-- 대댓글번호와 댓글번호 오름차순-->
+    </select>
+
+    <select id="select" parameterType="int" resultType="CommentDto">
+        SELECT cno, bno, pcno, comment, commenter, reg_date, up_date
+        FROM comment
+        WHERE cno = #{cno}
+    </select>
+
+    <update id="update" parameterType="CommentDto">
+        UPDATE comment
+        SET comment = #{comment}
+        , up_date = now()
+        WHERE cno = #{cno} and commenter = #{commenter}
+    </update>
+
+</mapper>

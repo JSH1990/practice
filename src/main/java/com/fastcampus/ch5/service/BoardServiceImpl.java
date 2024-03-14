@@ -2,6 +2,7 @@ package com.fastcampus.ch5.service;
 
 import com.fastcampus.ch5.dao.BoardDao;
 import com.fastcampus.ch5.domain.BoardDto;
+import com.fastcampus.ch5.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,12 +60,15 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.update(boardDto);
     }
 
-//    @Override
-//    //게시물 검색
-//    public List<BoardDto> getSelectResultPage(SearchCondition sc) throws Exception{
-//        return boardDao.
-//    }
+    @Override
+    //게시물 검색
+    public List<BoardDto> getSelectResultPage(SearchCondition sc) throws Exception{
+        return boardDao.searchSelectPage(sc);
+    }
 
-
+    @Override
+    public int getSearchResultCnt(SearchCondition sc) throws Exception{
+        return boardDao.searchResultCnt(sc);
+    }
 
 }

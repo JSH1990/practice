@@ -61,15 +61,15 @@ public class BoardDaoImpl implements BoardDao {
         return session.update(namespace+"increaseViewCnt",bno);
     }
 
-//    @Override
-//    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
-//        return null;
-//    }
-//
-//    @Override
-//    public int searchResultCnt(SearchCondition sc) throws Exception {
-//        return 0;
-//    }
+    @Override
+    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
+        return null;
+    }
+
+    @Override
+    public int searchResultCnt(SearchCondition sc) throws Exception {
+        return 0;
+    }
 
     @Override
     public int updateCommentCnt(Integer bno, int cnt) {

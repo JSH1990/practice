@@ -1,6 +1,7 @@
 package com.fastcampus.ch5.service;
 
 import com.fastcampus.ch5.domain.BoardDto;
+import com.fastcampus.ch5.domain.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -26,4 +27,8 @@ public interface BoardService {
 
     //게시글 수정하기
     int modify(BoardDto boardDto) throws Exception;
+
+    List<BoardDto> getSelectResultPage(SearchCondition sc) throws Exception;
+
+    int getSearchResultCnt(SearchCondition sc) throws Exception;
 }
