@@ -1,9 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
-<%@ page session="true"%>
-<c:set var="loginId" value="${sessionScope.id}"/>
-<c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
+<%@ page contentType="text/html; charset=utf-8" language="java" %> <!-- page에 대한 contentType설정 --> <!-- -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %> <!-- jstl c를 사용 하기위한 설정 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %> <!-- fmt를 사용 하기위한 설정 -->
+<%@ page session="true"%> <!-- session 설정 -->
+<c:set var="loginId" value="${sessionScope.id}"/> <!-- loginId c태그 설정 -->
+<c:set var="loginOutLink" value="${loginId==''? 'login/login' : '/login/logout'}"/> <!-- loginOutLink c태그 설정/ loginId가 빈문자면 login 아니면 logout 페이지로 이동 -->
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <!DOCTYPE html>
 <html>
