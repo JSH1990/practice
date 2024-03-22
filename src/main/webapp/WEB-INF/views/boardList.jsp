@@ -169,63 +169,41 @@
 <body>
 <div id="menu">
     <ul>
-        <li id="logo">fastcampus</li>
-        <li><a href="<c:url value='/'/>">Home</a></li>
-        <li><a href="<c:url value='/board/list'/>">Board</a></li>
-        <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a href="<c:url value='/register/add'/>">Sign in</a></li>
-        <li><a href=""><i class="fa fa-search"></i></a></li>
+        <li id="logo">fastcampus</li> <!-- 좌측화면 로고 -->
+        <li><a href="<c:url value='/'/>">Home</a></li> <!-- 클릭하면 메인 화면으로 넘어감 -->
+        <li><a href="<c:url value='/board/list'/>">Board</a></li> <!-- 게시판으로 이동 -->
+        <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li> <!-- 로그아웃 -->
+        <li><a href=""><i class="fa fa-search"></i></a></li> <!-- 검색 -->
     </ul>
 </div>
+
+<!-- js 부분 -->
 <script>
-    let msg = "${msg}"; //게시물 기능 동작 유무 메세지 사용하기위해 변수선언
-    if (msg=="LIST_ERR") alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
-    if (msg=="READ_ERR") alert("삭제되었거나 없는 게시물입니다.");
-    if (msg=="DEL_ERR") alert("삭제되었거나 없는 게시물입니다.");
+    let msg = "${msg}"; //서버에서 담은 msg 내용을 변수에 담음
+    <!-- 서버에서 가져온 msg에 따라 조건에 맞게 alert변경 -->
+    if(msg=="LIST_ERR") alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
+    if(msg=="READ_ERR") alert("삭제되었거나 없는 게시물 입니다.");
+    if(msg=="DEL_ERR") alert("삭제되었거나 없는 게시물 입니다.");
 
-    if(msg=="DEL_OK") alert("성공적으로 삭제되었습니다.");
-    if(msg=="WRT_OK") alert("성공적으로 등록되었습니다.");
-    if(msg=="MOD_OK")    alert("성공적으로 수정되었습니다.");
+    if(msg=="DEL_OK") alert("성공적으로 삭제 되었습니다.");
+    if(msg=="WRT_OK") alert("성공적으로 등록 되었습니다.");
+    if(msg=="MOD_OK") alert("성공적으로 수정 되었습니다.");
 </script>
-<div style="text-align:center">
-    <div class="board-container"> <!-- css를 위한 class-->
-        <div class="search-container"> <!-- css를 위한 class-->
-            <form action="<c:url value="/board/list">" class="search-form" method="get">
+
+<!-- 검색창 부분-->
+<div style="text-align: center">
+    <div class="board-container">
+        <div class="search-container">
+            <form action="<c:url value="board/list"/>" class="search-form" method="get">
                 <select class="search-option" name="option">
-                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=''? "selected" : ""}>제목+내용</option>
-                    <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
-                    <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>
+                    <!-- option값을 A로 정하고, ph에서 꺼내온 값이 A나 빈열이면 제목+내용이 초기값으로 세팅되어 있고, 검색어는 빈열로 한다.
+                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
+                    <option></option>
+                    <option></option>
                 </select>
-
-                <input type="text" name="keyword" class="search-input" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
-                <input type="submit" class="search-button" value="검색">
             </form>
-            <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/write"/>'"><i class="fa fa-pencil"></i> 글 쓰기 </button>
         </div>
-
-        <table>
-            <tr>
-                <th class="no">번호</th>
-                <th class="title">제목</th>
-                <th class="writer">이름</th>
-                <th class="regdate">등록일</th>
-                <th class="viewcnt">조회수</th>
-            </tr>
-            <c:forEach var="boardDto" items="${list}">
-                <tr>
-                    <td class="no">${boardDto.bno}</td>
-                    <td class="title"><a href="<c:url value="/board/read${ph.sc.queryString}&bno=${boardDto.bno}"/>">${boardDto.title}</a></td>
-                    <td class="writer">${boardDto.writer}</td>
-                    <c:choose>
-                        <c:when test="${boardDto.reg_date.time >= startOfToday}">
-                            <td class="regdate"><fmt:formatDate value="${boardDto.reg_date}"</td>
-                        </c:when>
-                    </c:choose>
-                </tr>
-            </c:forEach>
-        </table>
     </div>
 </div>
-
 </body>
 </html>
